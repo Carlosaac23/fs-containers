@@ -1,0 +1,243 @@
+fs-containers  main
+❯ docker run -it ubuntu bash
+Unable to find image 'ubuntu:latest' locally
+latest: Pulling from library/ubuntu
+d9b985643753: Pull complete
+09923199ca0e: Pull complete
+aff80cac5bd2: Download complete
+Digest: sha256:da6fc2be547864451aa253836dd926da33623312df4a9a243e35dc877c378a78
+Status: Downloaded newer image for ubuntu:latest
+root@31beab852251:/# ls
+bin   dev  home  lib64  mnt  proc  run   srv  tmp  var
+boot  etc  lib   media  opt  root  sbin  sys  usr
+root@31beab852251:/# mkdir /usr/src/app
+root@31beab852251:/# cd /usr/src/app/
+root@31beab852251:/usr/src/app# touch index.js
+root@31beab852251:/usr/src/app# exit
+exit
+fs-containers  main ?                                                                        1m1s
+❯ docker image ls
+                                                                              i Info →   U  In Use
+IMAGE                ID             DISK USAGE   CONTENT SIZE   EXTRA
+hello-world:latest   5e2309035332       25.9kB         9.49kB    U
+ubuntu:latest        da6fc2be5478        160MB         45.3MB    U
+fs-containers  main ?
+❯ docker container run --help
+Usage:  docker container run [OPTIONS] IMAGE [COMMAND] [ARG...]
+
+Create and run a new container from an image
+
+Aliases:
+  docker container run, docker run
+
+Options:
+      --add-host list                    Add a custom host-to-IP mapping (host:ip)
+      --annotation map                   Add an annotation to the container (passed through
+                                         to the OCI runtime) (default map[])
+  -a, --attach list                      Attach to STDIN, STDOUT or STDERR
+      --blkio-weight uint16              Block IO (relative weight), between 10 and 1000,
+                                         or 0 to disable (default 0)
+      --blkio-weight-device list         Block IO weight (relative device weight) (default [])
+      --cap-add list                     Add Linux capabilities
+      --cap-drop list                    Drop Linux capabilities
+      --cgroup-parent string             Optional parent cgroup for the container
+      --cgroupns string                  Cgroup namespace to use (host|private)
+                                         'host':    Run the container in the Docker host's
+                                         cgroup namespace
+                                         'private': Run the container in its own private
+                                         cgroup namespace
+                                         '':        Use the cgroup namespace as configured
+                                         by the
+                                                    default-cgroupns-mode option on the
+                                         daemon (default)
+      --cidfile string                   Write the container ID to the file
+      --cpu-period int                   Limit CPU CFS (Completely Fair Scheduler) period
+      --cpu-quota int                    Limit CPU CFS (Completely Fair Scheduler) quota
+      --cpu-rt-period int                Limit CPU real-time period in microseconds
+      --cpu-rt-runtime int               Limit CPU real-time runtime in microseconds
+  -c, --cpu-shares int                   CPU shares (relative weight)
+      --cpus decimal                     Number of CPUs
+      --cpuset-cpus string               CPUs in which to allow execution (0-3, 0,1)
+      --cpuset-mems string               MEMs in which to allow execution (0-3, 0,1)
+  -d, --detach                           Run container in background and print container ID
+      --detach-keys string               Override the key sequence for detaching a container
+      --device list                      Add a host device to the container
+      --device-cgroup-rule list          Add a rule to the cgroup allowed devices list
+      --device-read-bps list             Limit read rate (bytes per second) from a device
+                                         (default [])
+      --device-read-iops list            Limit read rate (IO per second) from a device
+                                         (default [])
+      --device-write-bps list            Limit write rate (bytes per second) to a device
+                                         (default [])
+      --device-write-iops list           Limit write rate (IO per second) to a device
+                                         (default [])
+      --dns list                         Set custom DNS servers
+      --dns-option list                  Set DNS options
+      --dns-search list                  Set custom DNS search domains
+      --domainname string                Container NIS domain name
+      --entrypoint string                Overwrite the default ENTRYPOINT of the image
+  -e, --env list                         Set environment variables
+      --env-file list                    Read in a file of environment variables
+      --expose list                      Expose a port or a range of ports
+      --gpus gpu-request                 GPU devices to add to the container ('all' to pass
+                                         all GPUs)
+      --group-add list                   Add additional groups to join
+      --health-cmd string                Command to run to check health
+      --health-interval duration         Time between running the check (ms|s|m|h) (default 0s)
+      --health-retries int               Consecutive failures needed to report unhealthy
+      --health-start-interval duration   Time between running the check during the start
+                                         period (ms|s|m|h) (default 0s)
+      --health-start-period duration     Start period for the container to initialize
+                                         before starting health-retries countdown
+                                         (ms|s|m|h) (default 0s)
+      --health-timeout duration          Maximum time to allow one check to run (ms|s|m|h)
+                                         (default 0s)
+      --help                             Print usage
+  -h, --hostname string                  Container host name
+      --init                             Run an init inside the container that forwards
+                                         signals and reaps processes
+  -i, --interactive                      Keep STDIN open even if not attached
+      --ip ip                            IPv4 address (e.g., 172.30.100.104)
+      --ip6 ip                           IPv6 address (e.g., 2001:db8::33)
+      --ipc string                       IPC mode to use
+      --isolation string                 Container isolation technology
+  -l, --label list                       Set meta data on a container
+      --label-file list                  Read in a line delimited file of labels
+      --link list                        Add link to another container
+      --link-local-ip list               Container IPv4/IPv6 link-local addresses
+      --log-driver string                Logging driver for the container
+      --log-opt list                     Log driver options
+      --mac-address string               Container MAC address (e.g., 92:d0:c6:0a:29:33)
+  -m, --memory bytes                     Memory limit
+      --memory-reservation bytes         Memory soft limit
+      --memory-swap bytes                Swap limit equal to memory plus swap: '-1' to
+                                         enable unlimited swap
+      --memory-swappiness int            Tune container memory swappiness (0 to 100)
+                                         (default -1)
+      --mount mount                      Attach a filesystem mount to the container
+      --name string                      Assign a name to the container
+      --network network                  Connect a container to a network
+      --network-alias list               Add network-scoped alias for the container
+      --no-healthcheck                   Disable any container-specified HEALTHCHECK
+      --oom-kill-disable                 Disable OOM Killer
+      --oom-score-adj int                Tune host's OOM preferences (-1000 to 1000)
+      --pid string                       PID namespace to use
+      --pids-limit int                   Tune container pids limit (set -1 for unlimited)
+      --platform string                  Set platform if server is multi-platform capable
+      --privileged                       Give extended privileges to this container
+  -p, --publish list                     Publish a container's port(s) to the host
+  -P, --publish-all                      Publish all exposed ports to random ports
+      --pull string                      Pull image before running ("always", "missing",
+                                         "never") (default "missing")
+  -q, --quiet                            Suppress the pull output
+      --read-only                        Mount the container's root filesystem as read only
+      --restart string                   Restart policy to apply when a container exits
+                                         (default "no")
+      --rm                               Automatically remove the container and its
+                                         associated anonymous volumes when it exits
+      --runtime string                   Runtime to use for this container
+      --security-opt list                Security Options
+      --shm-size bytes                   Size of /dev/shm
+      --sig-proxy                        Proxy received signals to the process (default true)
+      --stop-signal string               Signal to stop the container
+      --stop-timeout int                 Timeout (in seconds) to stop a container
+      --storage-opt list                 Storage driver options for the container
+      --sysctl map                       Sysctl options (default map[])
+      --tmpfs list                       Mount a tmpfs directory
+  -t, --tty                              Allocate a pseudo-TTY
+      --ulimit ulimit                    Ulimit options (default [])
+      --use-api-socket                   Bind mount Docker API socket and required auth
+  -u, --user string                      Username or UID (format: <name|uid>[:<group|gid>])
+      --userns string                    User namespace to use
+      --uts string                       UTS namespace to use
+  -v, --volume list                      Bind mount a volume
+      --volume-driver string             Optional volume driver for the container
+      --volumes-from list                Mount volumes from the specified container(s)
+  -w, --workdir string                   Working directory inside the container
+fs-containers  main ?                                                                          1s
+❯ docker container ls
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+fs-containers  main ?
+❯ docker container ls -a
+CONTAINER ID   IMAGE         COMMAND    CREATED         STATUS                          PORTS     NAMES
+31beab852251   ubuntu        "bash"     2 minutes ago   Exited (0) About a minute ago             nervous_tesla
+e3436ddea7f3   hello-world   "/hello"   6 minutes ago   Exited (0) 6 minutes ago                  mystifying_noether
+fs-containers  main ?
+❯ docker container ps -a
+CONTAINER ID   IMAGE         COMMAND    CREATED         STATUS                     PORTS     NAMES
+31beab852251   ubuntu        "bash"     3 minutes ago   Exited (0) 2 minutes ago             nervous_tesla
+e3436ddea7f3   hello-world   "/hello"   7 minutes ago   Exited (0) 7 minutes ago             mystifying_noether
+fs-containers  main ?
+❯ docker ps -a
+CONTAINER ID   IMAGE         COMMAND    CREATED         STATUS                     PORTS     NAMES
+31beab852251   ubuntu        "bash"     3 minutes ago   Exited (0) 2 minutes ago             nervous_tesla
+e3436ddea7f3   hello-world   "/hello"   7 minutes ago   Exited (0) 7 minutes ago             mystifying_noether
+fs-containers  main ?
+❯ docker start nervous_tesla
+nervous_tesla
+fs-containers  main ?                                                                                         0s
+❯ docker container ls -a
+CONTAINER ID   IMAGE         COMMAND    CREATED         STATUS                     PORTS     NAMES
+31beab852251   ubuntu        "bash"     4 minutes ago   Up 26 seconds                        nervous_tesla
+e3436ddea7f3   hello-world   "/hello"   8 minutes ago   Exited (0) 8 minutes ago             mystifying_noether
+fs-containers  main ?
+❯ docker kill nervous_tesla
+nervous_tesla
+fs-containers  main ?                                                                                         1s
+❯ docker container ls -a
+CONTAINER ID   IMAGE         COMMAND    CREATED         STATUS                       PORTS     NAMES
+31beab852251   ubuntu        "bash"     4 minutes ago   Exited (137) 2 seconds ago             nervous_tesla
+e3436ddea7f3   hello-world   "/hello"   9 minutes ago   Exited (0) 9 minutes ago               mystifying_noether
+fs-containers  main ?
+❯ docker start -i nervous_tesla
+root@31beab852251:/# apt update
+Get:1 http://security.ubuntu.com/ubuntu resolute-security InRelease [137 kB]
+Get:2 http://archive.ubuntu.com/ubuntu resolute InRelease [136 kB]
+Get:3 http://security.ubuntu.com/ubuntu resolute-security/universe amd64 Packages [232 kB]
+Get:4 http://security.ubuntu.com/ubuntu resolute-security/restricted amd64 Packages [547 kB]
+Get:5 http://security.ubuntu.com/ubuntu resolute-security/main amd64 Packages [667 kB]
+Get:6 http://security.ubuntu.com/ubuntu resolute-security/multiverse amd64 Packages [13.6 kB]
+Get:7 http://archive.ubuntu.com/ubuntu resolute-updates InRelease [137 kB]
+Get:8 http://archive.ubuntu.com/ubuntu resolute-backports InRelease [137 kB]
+Get:9 http://archive.ubuntu.com/ubuntu resolute/multiverse amd64 Packages [352 kB]
+Get:10 http://archive.ubuntu.com/ubuntu resolute/universe amd64 Packages [20.1 MB]
+Get:11 http://archive.ubuntu.com/ubuntu resolute/main amd64 Packages [1874 kB]
+Get:12 http://archive.ubuntu.com/ubuntu resolute/restricted amd64 Packages [189 kB]
+Get:13 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 Packages [839 kB]
+Get:14 http://archive.ubuntu.com/ubuntu resolute-updates/multiverse amd64 Packages [14.6 kB]
+Get:15 http://archive.ubuntu.com/ubuntu resolute-updates/universe amd64 Packages [389 kB]
+Get:16 http://archive.ubuntu.com/ubuntu resolute-updates/restricted amd64 Packages [563 kB]
+Get:17 http://archive.ubuntu.com/ubuntu resolute-backports/universe amd64 Packages [3306 B]
+Fetched 26.4 MB in 6s (4465 kB/s)
+1 package can be upgraded. Run 'apt list --upgradable' to see it.
+root@31beab852251:/# apt install nano
+Installing:
+  nano
+
+Suggested packages:
+  hunspell
+
+Summary:
+  Upgrading: 0, Installing: 1, Removing: 0, Not Upgrading: 1
+  Download size: 289 kB
+  Space needed: 893 kB / 10.9 GB available
+
+Get:1 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 nano amd64 8.7.1-1ubuntu0.1 [289 kB]
+Fetched 289 kB in 1s (209 kB/s)
+debconf: unable to initialize frontend: Dialog
+debconf: (No usable dialog-like program is installed, so the dialog based frontend cannot be used. at /usr/share/perl5/Debconf/FrontEnd/Dialog.pm line 79, <STDIN> line 1.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.40.1 /usr/local/share/perl/5.40.1 /usr/lib/x86_64-linux-gnu/perl5/5.40 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.40 /usr/share/perl/5.40 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 8, <STDIN> line 1.)
+debconf: falling back to frontend: Teletype
+Selecting previously unselected package nano.
+(Reading database ... 7724 files and directories currently installed.)
+Preparing to unpack .../nano_8.7.1-1ubuntu0.1_amd64.deb ...
+Unpacking nano (8.7.1-1ubuntu0.1) ...
+Setting up nano (8.7.1-1ubuntu0.1) ...
+update-alternatives: using /bin/nano to provide /usr/bin/editor (editor) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/editor.1.gz because associated file /usr/share/man/man1/nano.1.gz (of link group editor) does not exist
+update-alternatives: using /bin/nano to provide /usr/bin/pico (pico) in auto mode
+update-alternatives: warning: skip creation of /usr/share/man/man1/pico.1.gz because associated file /usr/share/man/man1/nano.1.gz (of link group pico) does not exist
+root@31beab852251:/# nano /usr/src/app/index.js
+root@31beab852251:/#
