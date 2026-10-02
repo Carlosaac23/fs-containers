@@ -1,0 +1,77 @@
+fs-containers/todo-app/todo-backend  main ?⇡2  v24.19.0                                        2s
+❯ docker compose -f docker-compose.dev.yml up -d
+[+] up 2/2
+ ✔ Network todo-backend_default   Created                                                     0.3s
+ ✔ Container todo-backend-mongo-1 Started                                                     2.5s
+fs-containers/todo-app/todo-backend  main ?⇡2  v24.19.0                                        2s
+❯ docker ps
+CONTAINER ID   IMAGE       COMMAND                  CREATED         STATUS         PORTS                                           NAMES
+5abe81b9e246   mongo:7.0   "docker-entrypoint.s…"   7 seconds ago   Up 5 seconds   0.0.0.0:3456->27017/tcp, [::]:3456->27017/tcp   todo-backend-mongo-1
+fs-containers/todo-app/todo-backend  main ?⇡2  v24.19.0
+❯ docker exec -it todo-backend-mongo-1 bash
+root@5abe81b9e246:/# mongosh --version
+2.10.0
+root@5abe81b9e246:/# mongosh -u root -p example
+Current Mongosh Log ID: 6abeee7e394f1945e81f9b78
+Connecting to:          mongodb://<credentials>@127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.10.0
+Using MongoDB:          7.0.43
+Using Mongosh:          2.10.0
+
+For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
+
+
+To help improve our products, anonymous usage data is collected and sent to MongoDB periodically (https://www.mongodb.com/legal/privacy-policy).
+You can opt-out by running the disableTelemetry() command.
+
+------
+   The server generated these startup warnings when booting
+   2026-10-01T23:35:42.952+00:00: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine. See http://dochub.mongodb.org/core/prodnotes-filesystem
+   2026-10-01T23:35:43.932+00:00: Soft rlimits for open file descriptors too low
+------
+
+test> show dbs
+admin         100.00 KiB
+config         72.00 KiB
+local          72.00 KiB
+the_database   56.00 KiB
+test> use the_database
+switched to db the_database
+the_database> show collections
+todos
+the_database> db.todos.find({})
+[
+  {
+    _id: ObjectId('6abc430b637e9023444ebc74'),
+    text: 'Estudiar para cálculo',
+    done: false
+  },
+  {
+    _id: ObjectId('6abc430b637e9023444ebc75'),
+    text: 'Learn about containers',
+    done: false
+  }
+]
+the_database> db.todos.insertOne({ text: "Increase the number of tools in my tool belt", done: false })
+{
+  acknowledged: true,
+  insertedId: ObjectId('6abeef0a394f1945e81f9b79')
+}
+the_database> db.todos.find({})
+[
+  {
+    _id: ObjectId('6abc430b637e9023444ebc74'),
+    text: 'Estudiar para cálculo',
+    done: false
+  },
+  {
+    _id: ObjectId('6abc430b637e9023444ebc75'),
+    text: 'Learn about containers',
+    done: false
+  },
+  {
+    _id: ObjectId('6abeef0a394f1945e81f9b79'),
+    text: 'Increase the number of tools in my tool belt',
+    done: false
+  }
+]
+the_database>
